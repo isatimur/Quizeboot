@@ -1,0 +1,62 @@
+#----------------------------Profile: dev------------------------------------------------------------------------
+spring:
+  profiles: dev
+
+  # HTTP-SERVER
+  server:
+    port: 8080 # Порт на котором приложение будет ожидать запросы
+
+
+  # MONGODB
+  data:
+    mongodb:
+      database: rldd2
+      repositories.enabled: true
+      uri: mongodb://user:pwd@localhost:27017/rldd2?authSource=admin
+#      uri: mongodb://localhost:27017/rldd2
+
+
+  # LOGGING
+  logging:
+  #  path: /var/log
+  #  file: ${spring.application.name}-${spring.application.version}.log
+  #  config: classpath://log4j.properties
+    level:
+  #    org.springframework.boot: DEBUG
+      org.springframework.web: DEBUG
+      org.springframework.data.rest: DEBUG
+#      org.springframework.security: DEBUG
+
+
+# Настройка для миграции из рлдд1 в рлдд2. включается только если профиль mrldd активен.
+  rldd:
+    mongodb:
+      database: rldd
+      uri: mongodb://user:pwd@localhost:27017/rldd2?authSource=admin
+
+
+# Настройка отправки меж. вед. запросов с сервера (задача не выполнена до конца, фукнционал не работает.)
+#  mfc:
+#    mv:
+#      maxPoolSize: 10
+#      queueCapacity: 1000
+#    mongodb:
+#      uri: mongodb://localhost:27017
+
+
+# RABBIT-MQ
+#  rabbitmq:
+#    port: 5672
+#    host: localhost
+#    username: admin
+#    password: secret
+
+
+# Настройка xdpub нотификации
+#  xdpub:
+#    mode: mongo # выбор способа отправки сообщений, возможные значения: [mongo, rabbit]
+#    rabbit:
+#      queueName: xdpub-dev # имя очереди из которой будет забирать сообщения xd
+#      routingKey: xdpub-dev # ключ, по которому будет происходить выбор сообщений ( так как несколько профилей могут работать на одном инстансе rabbitmq требуется чтобы для каждого типа глобального профиля ключ был уникален)
+---
+#----------------------------------------------------------------------------------------------------------------
